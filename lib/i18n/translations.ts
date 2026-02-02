@@ -60,6 +60,7 @@ export const translations = {
     
     // Zones
     sohar: 'Sohar Refinery',
+    muscat: 'Muscat Refinery',
     duqm: 'Duqm Refinery',
     
     // Alerts
@@ -183,6 +184,7 @@ export const translations = {
     
     // Zones
     sohar: 'مصفاة صحار',
+    muscat: 'مصفاة مسقط',
     duqm: 'مصفاة الدقم',
     
     // Alerts

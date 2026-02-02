@@ -10,13 +10,16 @@ const generateCableData = (): Cable[] => {
     { en: 'Tank Farm B - Distribution', ar: 'مزرعة الخزانات ب - التوزيع' },
     { en: 'Power Plant - Generator 1', ar: 'محطة الطاقة - المولد 1' },
     { en: 'Power Plant - Generator 2', ar: 'محطة الطاقة - المولد 2' },
-    { en: 'Control Room - Main Building', ar: 'غرفة التحكم - المبنى الرئيسي' },
-    { en: 'Pump House - Primary', ar: 'منزل المضخة - الأساسي' },
-    { en: 'Cooling Tower - North', ar: 'برج التبريد - الشمال' },
-    { en: 'Cooling Tower - South', ar: 'برج التبريد - الجنوب' },
-    { en: 'Compressor Station A', ar: 'محطة الضاغط أ' },
-    { en: 'Loading Bay - Terminal 1', ar: 'خليج التحميل - المحطة 1' },
-    { en: 'Emergency Shutdown System', ar: 'نظام الإغلاق الطارئ' },
+  ];
+
+  const muscatLocations = [
+    { en: 'Mina Al Fahal - Loading Bay', ar: 'ميناء الفحل - منصة التحميل' },
+    { en: 'Control Room - Main', ar: 'غرفة التحكم - الرئيسية' },
+    { en: 'Pump Station - North', ar: 'محطة الضخ - الشمال' },
+    { en: 'Storage Tank 101', ar: 'خزان التخزين 101' },
+    { en: 'Process Unit A', ar: 'وحدة المعالجة أ' },
+    { en: 'Utility Station', ar: 'محطة المرافق' },
+    { en: 'Pipeline Junction', ar: 'تقاطع خطوط الأنابيب' },
   ];
 
   const duqmLocations = [
@@ -28,13 +31,6 @@ const generateCableData = (): Cable[] => {
     { en: 'Water Treatment Plant', ar: 'محطة معالجة المياه' },
     { en: 'Flare System - East', ar: 'نظام الحرق - الشرق' },
     { en: 'Pump Station B', ar: 'محطة المضخة ب' },
-    { en: 'Control Center - Building 2', ar: 'مركز التحكم - المبنى 2' },
-    { en: 'Compressor Station B', ar: 'محطة الضاغط ب' },
-    { en: 'Loading Terminal - Jetty', ar: 'محطة التحميل - الرصيف' },
-    { en: 'Utility Building - North', ar: 'مبنى المرافق - الشمال' },
-    { en: 'Emergency Power Gen', ar: 'مولد الطاقة الطارئ' },
-    { en: 'Process Unit D', ar: 'وحدة المعالجة د' },
-    { en: 'Instrument Air System', ar: 'نظام هواء الأجهزة' },
   ];
 
   const cables: Cable[] = [];
@@ -92,15 +88,15 @@ const generateCableData = (): Cable[] => {
     return 'healthy';
   };
 
-  // Sohar Refinery cables (18 cables)
+  // Sohar Refinery cables
   soharLocations.forEach((location, index) => {
     const cableId = `CB-${String(cableNumber).padStart(3, '0')}`;
     const status = index === 0 ? 'critical' : getStatus(cableNumber);
     const sensorValues = generateSensorValues(status);
     
-    // Slight variations in coordinates around Sohar refinery
-    const lat = 23.6145 + (Math.random() - 0.5) * 0.02;
-    const lon = 58.5906 + (Math.random() - 0.5) * 0.02;
+    // Sohar Refinery coordinates: ~24.475, 56.635
+    const lat = 24.475 + (Math.random() - 0.5) * 0.02;
+    const lon = 56.635 + (Math.random() - 0.5) * 0.02;
 
     cables.push({
       id: cableId,
@@ -115,24 +111,56 @@ const generateCableData = (): Cable[] => {
       failureProbability: sensorValues.failureProbability,
       daysToFailure: sensorValues.daysToFailure,
       coordinates: [lat, lon],
-      lastMaintenance: new Date(Date.now() - Math.random() * 90 * 24 * 60 * 60 * 1000), // 0-90 days ago
-      installDate: new Date(Date.now() - (365 * 3 + Math.random() * 365 * 4) * 24 * 60 * 60 * 1000), // 3-7 years ago
+      lastMaintenance: new Date(Date.now() - Math.random() * 90 * 24 * 60 * 60 * 1000), 
+      installDate: new Date(Date.now() - (365 * 3 + Math.random() * 365 * 4) * 24 * 60 * 60 * 1000), 
       unit: location.en.split('-')[0].trim(),
-      voltage: 11000, // 11kV
+      voltage: 11000, 
     });
 
     cableNumber++;
   });
 
-  // Duqm Refinery cables (15 cables)
+  // Muscat Refinery (Mina Al Fahal) cables
+  muscatLocations.forEach((location, index) => {
+    const cableId = `CB-${String(cableNumber).padStart(3, '0')}`;
+    const status = getStatus(cableNumber);
+    const sensorValues = generateSensorValues(status);
+    
+    // Mina Al Fahal coordinates: ~23.635, 58.535
+    const lat = 23.635 + (Math.random() - 0.5) * 0.02;
+    const lon = 58.535 + (Math.random() - 0.5) * 0.02;
+
+    cables.push({
+      id: cableId,
+      location: location.en,
+      locationAr: location.ar,
+      zone: 'Muscat',
+      status,
+      temperature: sensorValues.temperature,
+      current: sensorValues.current,
+      vibration: sensorValues.vibration,
+      pdLevel: sensorValues.pdLevel,
+      failureProbability: sensorValues.failureProbability,
+      daysToFailure: sensorValues.daysToFailure,
+      coordinates: [lat, lon],
+      lastMaintenance: new Date(Date.now() - Math.random() * 90 * 24 * 60 * 60 * 1000),
+      installDate: new Date(Date.now() - (365 * 3 + Math.random() * 365 * 4) * 24 * 60 * 60 * 1000),
+      unit: location.en.split('-')[0].trim(),
+      voltage: 11000,
+    });
+
+    cableNumber++;
+  });
+
+  // Duqm Refinery cables
   duqmLocations.forEach((location, index) => {
     const cableId = `CB-${String(cableNumber).padStart(3, '0')}`;
     const status = getStatus(cableNumber);
     const sensorValues = generateSensorValues(status);
     
-    // Slight variations in coordinates around Duqm refinery
-    const lat = 19.6645 + (Math.random() - 0.5) * 0.02;
-    const lon = 57.8784 + (Math.random() - 0.5) * 0.02;
+    // Duqm Refinery coordinates: ~19.575, 57.715
+    const lat = 19.575 + (Math.random() - 0.5) * 0.02;
+    const lon = 57.715 + (Math.random() - 0.5) * 0.02;
 
     cables.push({
       id: cableId,
@@ -165,7 +193,7 @@ export const getCableById = (id: string): Cable | undefined => {
   return mockCables.find(cable => cable.id === id);
 };
 
-export const getCablesByZone = (zone: 'Sohar' | 'Duqm'): Cable[] => {
+export const getCablesByZone = (zone: 'Sohar' | 'Duqm' | 'Muscat'): Cable[] => {
   return mockCables.filter(cable => cable.zone === zone);
 };
 

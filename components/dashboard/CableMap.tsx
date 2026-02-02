@@ -21,7 +21,7 @@ const MapComponent = dynamic(() => import('./MapComponent'), {
 export function CableMap() {
   const { t } = useLanguage();
   const { cables } = useAppStore();
-  const [selectedZone, setSelectedZone] = useState<'all' | 'Sohar' | 'Duqm'>('all');
+  const [selectedZone, setSelectedZone] = useState<'all' | 'Sohar' | 'Duqm' | 'Muscat'>('all');
   const router = useRouter();
 
   const filteredCables = selectedZone === 'all' 
@@ -61,6 +61,16 @@ export function CableMap() {
             }`}
           >
             {t('sohar')}
+          </button>
+          <button
+            onClick={() => setSelectedZone('Muscat')}
+            className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
+              selectedZone === 'Muscat'
+                ? 'bg-oq-navy text-white'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            {t('muscat')}
           </button>
           <button
             onClick={() => setSelectedZone('Duqm')}
