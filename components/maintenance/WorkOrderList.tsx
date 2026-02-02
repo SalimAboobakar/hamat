@@ -5,6 +5,7 @@ import { useLanguage } from '@/lib/i18n/LanguageContext';
 import { mockWorkOrders } from '@/lib/data/mockWorkOrders';
 import { WorkOrder, WorkOrderStatus, WorkOrderPriority } from '@/types';
 import { formatDate, formatCurrency, getPriorityColor, getWorkOrderStatusColor } from '@/lib/utils/formatters';
+import { TranslationKey } from '@/lib/i18n/translations';
 import { Calendar, User, DollarSign, ChevronRight } from 'lucide-react';
 import { clsx } from 'clsx';
 import Link from 'next/link';
@@ -23,6 +24,19 @@ export function WorkOrderList() {
 
   const statusOptions: (WorkOrderStatus | 'all')[] = ['all', 'pending', 'in_progress', 'completed', 'cancelled'];
   const priorityOptions: (WorkOrderPriority | 'all')[] = ['all', 'critical', 'high', 'medium', 'low'];
+
+  // Helper function to convert WorkOrderStatus to translation key
+  const getStatusTranslationKey = (status: WorkOrderStatus | 'all'): TranslationKey => {
+    if (status === 'all') return 'dashboard';
+    if (status === 'in_progress') return 'inProgress';
+    return status as TranslationKey;
+  };
+
+  // Helper function to convert WorkOrderPriority to translation key
+  const getPriorityTranslationKey = (priority: WorkOrderPriority | 'all'): TranslationKey => {
+    if (priority === 'all') return 'dashboard';
+    return priority as TranslationKey;
+  };
 
   return (
     <div className="space-y-4">
@@ -43,7 +57,7 @@ export function WorkOrderList() {
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   )}
                 >
-                  {status === 'all' ? t('dashboard') : t(status)}
+                  {t(getStatusTranslationKey(status))}
                 </button>
               ))}
             </div>
@@ -63,7 +77,7 @@ export function WorkOrderList() {
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   )}
                 >
-                  {priority === 'all' ? t('dashboard') : t(priority)}
+                  {t(getPriorityTranslationKey(priority))}
                 </button>
               ))}
             </div>
@@ -93,7 +107,7 @@ export function WorkOrderList() {
                           {language === 'ar' ? wo.titleAr : wo.title}
                         </h3>
                         <span className={clsx('text-xs px-2 py-0.5 rounded-full font-medium', getWorkOrderStatusColor(wo.status))}>
-                          {t(wo.status)}
+                          {t(getStatusTranslationKey(wo.status))}
                         </span>
                       </div>
                       <p className="text-sm text-gray-600">
@@ -101,7 +115,7 @@ export function WorkOrderList() {
                       </p>
                     </div>
                     <span className={clsx('text-xs px-2 py-1 rounded border font-medium whitespace-nowrap', getPriorityColor(wo.priority))}>
-                      {t(wo.priority)}
+                      {t(getPriorityTranslationKey(wo.priority))}
                     </span>
                   </div>
 

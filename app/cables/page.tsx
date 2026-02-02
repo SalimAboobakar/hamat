@@ -2,23 +2,41 @@
 
 import { Card } from '@/components/shared/Card';
 import { StatusBadge } from '@/components/shared/StatusBadge';
+import { LoadingSpinner } from '@/components/shared/LoadingSpinner';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
 import { useAppStore } from '@/lib/store/appStore';
 import { formatSensorValue } from '@/lib/utils/formatters';
 import { Search } from 'lucide-react';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function CablesPage() {
   const { t, language } = useLanguage();
   const { cables } = useAppStore();
   const [search, setSearch] = useState('');
+  const [isMounted, setIsMounted] = useState(false);
 
-  const filteredCables = cables.filter(cable =>
-    cable.id.toLowerCase().includes(search.toLowerCase()) ||
-    cable.location.toLowerCase().includes(search.toLowerCase()) ||
-    cable.locationAr.includes(search)
-  );
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <LoadingSpinner size="lg" />
+      </div>
+    );
+  }
+
+  const filteredCables = (cables || []).filter(cable => {
+    if (!cable || !cable.id) return false;
+    const searchLower = search.toLowerCase();
+    return (
+      cable.id.toLowerCase().includes(searchLower) ||
+      cable.location?.toLowerCase().includes(searchLower) ||
+      cable.locationAr?.includes(search)
+    );
+  });
 
   return (
     <div className="space-y-6">
@@ -48,34 +66,40 @@ export default function CablesPage() {
       </Card>
 
       {/* Cables Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filteredCables.map(cable => (
-          <Link key={cable.id} href={`/cable/${cable.id}`}>
-            <Card hover className="p-4">
-              <div className="flex items-start justify-between mb-3">
-                <div>
-                  <h3 className="font-bold text-gray-900">{cable.id}</h3>
-                  <p className="text-sm text-gray-600 mt-1">
-                    {language === 'ar' ? cable.locationAr : cable.location}
-                  </p>
+      {filteredCables.length === 0 ? (
+        <Card className="p-8 text-center">
+          <p className="text-gray-600">{t('noData')}</p>
+        </Card>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filteredCables.map(cable => (
+            <Link key={cable.id} href={`/cable/${cable.id}`}>
+              <Card hover className="p-4">
+                <div className="flex items-start justify-between mb-3">
+                  <div>
+                    <h3 className="font-bold text-gray-900">{cable.id}</h3>
+                    <p className="text-sm text-gray-600 mt-1">
+                      {language === 'ar' ? cable.locationAr : cable.location}
+                    </p>
+                  </div>
+                  <StatusBadge status={cable.status} size="sm" />
                 </div>
-                <StatusBadge status={cable.status} size="sm" />
-              </div>
 
-              <div className="grid grid-cols-2 gap-2 text-sm">
-                <div>
-                  <p className="text-gray-600">{t('temperature')}</p>
-                  <p className="font-medium">{formatSensorValue(cable.temperature, '°C')}</p>
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <div>
+                    <p className="text-gray-600">{t('temperature')}</p>
+                    <p className="font-medium" suppressHydrationWarning>{formatSensorValue(cable.temperature, '°C')}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-600">{t('current')}</p>
+                    <p className="font-medium" suppressHydrationWarning>{formatSensorValue(cable.current, 'A')}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-gray-600">{t('current')}</p>
-                  <p className="font-medium">{formatSensorValue(cable.current, 'A')}</p>
-                </div>
-              </div>
-            </Card>
-          </Link>
-        ))}
-      </div>
+              </Card>
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

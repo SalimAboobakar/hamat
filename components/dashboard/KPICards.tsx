@@ -59,7 +59,7 @@ export function KPICards() {
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <p className="text-sm text-gray-600 font-medium">{kpi.title}</p>
-                  <p className="text-3xl font-bold text-gray-900 mt-2">{kpi.value}</p>
+                  <p className="text-3xl font-bold text-gray-900 mt-2" suppressHydrationWarning>{kpi.value}</p>
                   {kpi.trend && (
                     <p className="text-xs text-green-600 mt-2 font-medium">
                       {kpi.trend} {t('thisMonth')}

@@ -80,11 +80,11 @@ export function PredictionPanel({ cable }: PredictionPanelProps) {
         </div>
         
         <div className="text-center mb-4">
-          <div className="text-5xl font-bold mb-2">
+          <div className="text-5xl font-bold mb-2" suppressHydrationWarning>
             {formatPercentage(cable.failureProbability)}
           </div>
           <div className="text-sm opacity-75">
-            {t('daysToFailure')}: <span className="font-bold">{cable.daysToFailure}</span>
+            {t('daysToFailure')}: <span className="font-bold" suppressHydrationWarning>{cable.daysToFailure}</span>
           </div>
         </div>
 
@@ -107,7 +107,7 @@ export function PredictionPanel({ cable }: PredictionPanelProps) {
         <div className="mt-4 pt-4 border-t">
           <div className="flex items-center justify-between text-sm">
             <span className="opacity-75">{t('confidence')}</span>
-            <span className="font-bold">{formatPercentage(confidence, 1)}</span>
+            <span className="font-bold" suppressHydrationWarning>{formatPercentage(confidence, 1)}</span>
           </div>
         </div>
       </Card>
@@ -146,7 +146,7 @@ export function PredictionPanel({ cable }: PredictionPanelProps) {
             <DollarSign className="w-5 h-5 text-oq-gold" />
             <div>
               <p className="text-xs text-gray-600">{t('estimatedCost')}</p>
-              <p className="text-lg font-bold text-gray-900">
+              <p className="text-lg font-bold text-gray-900" suppressHydrationWarning>
                 {formatCurrency(estimatedCost, language)}
               </p>
             </div>
@@ -155,7 +155,7 @@ export function PredictionPanel({ cable }: PredictionPanelProps) {
             <Calendar className="w-5 h-5 text-blue-500" />
             <div>
               <p className="text-xs text-gray-600">{t('scheduledDate')}</p>
-              <p className="text-sm font-medium text-gray-900">
+              <p className="text-sm font-medium text-gray-900" suppressHydrationWarning>
                 {cable.daysToFailure < 30 
                   ? language === 'ar' ? 'عاجل' : 'Urgent'
                   : language === 'ar' ? `${cable.daysToFailure} يوم` : `${cable.daysToFailure} days`}

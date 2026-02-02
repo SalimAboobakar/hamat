@@ -61,25 +61,25 @@ export function CableDetails({ cable }: CableDetailsProps) {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 p-4 bg-gray-50 rounded-lg">
         <div>
           <p className="text-sm text-gray-600">{t('temperature')}</p>
-          <p className="text-xl font-bold text-gray-900">
+          <p className="text-xl font-bold text-gray-900" suppressHydrationWarning>
             {formatSensorValue(cable.temperature, '°C')}
           </p>
         </div>
         <div>
           <p className="text-sm text-gray-600">{t('current')}</p>
-          <p className="text-xl font-bold text-gray-900">
+          <p className="text-xl font-bold text-gray-900" suppressHydrationWarning>
             {formatSensorValue(cable.current, 'A')}
           </p>
         </div>
         <div>
           <p className="text-sm text-gray-600">{t('vibration')}</p>
-          <p className="text-xl font-bold text-gray-900">
+          <p className="text-xl font-bold text-gray-900" suppressHydrationWarning>
             {formatSensorValue(cable.vibration, 'Hz')}
           </p>
         </div>
         <div>
           <p className="text-sm text-gray-600">{t('pdLevel')}</p>
-          <p className="text-xl font-bold text-gray-900">
+          <p className="text-xl font-bold text-gray-900" suppressHydrationWarning>
             {formatSensorValue(cable.pdLevel, 'pC')}
           </p>
         </div>
