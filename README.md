@@ -108,7 +108,7 @@ npm start
 - **Animated Updates**: Sensor values update every 2 seconds
 - **Realistic Noise**: Random variations simulate real-world conditions
 - **Trend Analysis**: Historical data (24 hours) for pattern recognition
-- **Demo Scenario**: Watch CB-089 degrade in real-time:
+- **Demo Scenario**: Watch CB-001 degrade in real-time:
   - 0-10s: Healthy → Warning (temperature rises)
   - 10-20s: Warning → Caution (vibration increases)
   - 20s+: Critical status with high failure probability
@@ -131,14 +131,14 @@ npm start
 ### For Presentations and Judges
 
 1. **Start on Dashboard** - Shows healthy system (96% health)
-2. **Click "Simulate Alert"** - Triggers CB-089 degradation scenario
+2. **Click "Simulate Alert"** - Triggers CB-001 degradation scenario
 3. **Watch Real-time Changes**:
    - Temperature rises from 35°C → 58°C
    - Status changes: Green → Yellow → Orange → Red
    - Alert panel updates with new warnings
    - KPI cards reflect increased active alerts
-4. **Navigate to CB-089**:
-   - Click on CB-089 in the map or alerts panel
+4. **Navigate to CB-001**:
+   - Click on CB-001 in the map or alerts panel
    - View detailed sensor charts showing degradation
    - See AI prediction: 78% failure probability
    - Review maintenance recommendations
@@ -149,9 +149,9 @@ npm start
 ## 📊 Mock Data
 
 ### Cable Distribution
-- **Total Cables**: 33 (18 Sohar + 15 Duqm)
+- **Total Cables**: 23 (8 Sohar + 7 Muscat + 8 Duqm)
 - **Status Mix**: 70% Healthy, 20% Warning, 7% Caution, 3% Critical
-- **Featured Cable**: CB-089 (Critical status for demo)
+- **Featured Cable**: CB-001 (Critical status for demo)
 
 ### Sensor Ranges
 - **Temperature**: 20-63°C (Normal: 20-32°C, Critical: >50°C)

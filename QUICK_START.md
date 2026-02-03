@@ -21,7 +21,7 @@ Open this URL in your web browser to start using the dashboard.
 
 ### 2. Try the Demo Scenario
 1. Click the **"Simulate Alert"** button in the top-right corner
-2. Watch as **CB-089** degrades from healthy to critical status
+2. Watch as **CB-001** degrades from healthy to critical status
 3. Observe real-time changes in:
    - Temperature rising from 35°C → 58°C
    - Status changes: Green → Yellow → Orange → Red
@@ -60,7 +60,7 @@ Open this URL in your web browser to start using the dashboard.
 |------|-----|-------------|
 | **Dashboard** | `/` | Main overview with KPIs, map, and alerts |
 | **Cables** | `/cables` | List view of all monitored cables |
-| **Cable Detail** | `/cable/[id]` | Individual cable monitoring (e.g., `/cable/CB-089`) |
+| **Cable Detail** | `/cable/[id]` | Individual cable monitoring (e.g., `/cable/CB-001`) |
 | **Analytics** | `/analytics` | Business intelligence and ROI analysis |
 | **Maintenance** | `/maintenance` | Work order management and scheduling |
 | **Reports** | `/reports` | Coming soon |
@@ -76,7 +76,7 @@ Open this URL in your web browser to start using the dashboard.
    - Status indicators with pulsing critical alerts
 
 2. **Predictive Analytics** 🤖
-   - AI-powered failure probability (78% for CB-089)
+   - AI-powered failure probability (78% for CB-001)
    - Days to failure countdown
    - Confidence scores (85-95%)
 
@@ -102,13 +102,13 @@ Open this URL in your web browser to start using the dashboard.
 "This is the OQ RPI Cable Health Monitoring Dashboard. We're monitoring 33 cables across Sohar and Duqm refineries. System health is at 96% with 8 active alerts. We've saved 180K OMR this month through predictive maintenance."
 
 ### Minute 2: Interactive Map
-"The interactive map shows all cables color-coded by health status. Green is healthy, yellow is warning, orange is caution, and red is critical. Let me click on CB-089..."
+"The interactive map shows all cables color-coded by health status. Green is healthy, yellow is warning, orange is caution, and red is critical. Let me click on CB-001..."
 
 ### Minute 3: Cable Details & AI Prediction
-"Here we see detailed sensor readings for CB-089. The AI predicts a 78% failure probability within 18 days. Temperature is elevated at 52°C, and partial discharge levels are critical. The system recommends immediate inspection."
+"Here we see detailed sensor readings for CB-001. The AI predicts a 78% failure probability within 18 days. Temperature is elevated at 52°C, and partial discharge levels are critical. The system recommends immediate inspection."
 
 ### Minute 4: Live Demo Scenario
-"Let me demonstrate the real-time monitoring by simulating an alert. Watch CB-089 degrade in real-time... Temperature is rising, status changing from green to critical. This is how the system detects issues before they become failures."
+"Let me demonstrate the real-time monitoring by simulating an alert. Watch CB-001 degrade in real-time... Temperature is rising, status changing from green to critical. This is how the system detects issues before they become failures."
 
 ### Minute 5: Analytics & ROI
 "In our analytics dashboard, you can see the business impact. We've achieved 600% ROI with just a 2-month payback period. Annual savings are 1.2 million Omani Rials compared to traditional reactive maintenance. System uptime improved to 97.1%."

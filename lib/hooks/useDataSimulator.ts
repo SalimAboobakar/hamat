@@ -39,8 +39,8 @@ export function useDataSimulator() {
           let pdLevelUpdate = cable.pdLevel * noise();
           let statusUpdate: CableStatus = cable.status;
 
-          // Demo scenario: CB-089 degradation
-          if (isDemoScenarioActive && cable.id === 'CB-089') {
+          // Demo scenario: CB-001 degradation
+          if (isDemoScenarioActive && cable.id === 'CB-001') {
             const elapsed = (now - demoStartTimeRef.current) / 1000; // seconds
 
             if (elapsed < 10) {

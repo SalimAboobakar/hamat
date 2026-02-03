@@ -97,7 +97,7 @@ const generateCableData = (): Cable[] => {
 
   // Status distribution: 70% healthy, 20% warning, 7% caution, 3% critical
   const getStatus = (index: number): CableStatus => {
-    if (index === 0) return 'critical'; // CB-089 is always critical
+    if (index === 0) return 'critical'; // CB-001 is always critical for demo
     const rand = Math.random();
     if (rand < 0.03) return 'critical';
     if (rand < 0.10) return 'caution';
