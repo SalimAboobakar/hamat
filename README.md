@@ -274,3 +274,4 @@ For questions about this demo, please contact the development team.
 
 **Built with ❤️ for OQ RPI Predictive Maintenance Initiative**
 
+

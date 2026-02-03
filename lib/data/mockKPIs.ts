@@ -3,29 +3,29 @@ import { mockCables } from './mockCables';
 import { getActiveAlerts } from './mockAlerts';
 
 const calculateKPIs = (): KPI => {
-  const totalCables = mockCables.length;
+  const totalCables = 142; // Total Scans Performed
   const activeAlerts = getActiveAlerts().length;
   
-  // Calculate system health (percentage of healthy cables)
-  const healthyCables = mockCables.filter(cable => cable.status === 'healthy').length;
-  const systemHealth = Math.round((healthyCables / totalCables) * 100);
+  // Calculate system accuracy (mocked for demo)
+  const systemHealth = 98; // 98% Accuracy
   
-  // Estimated monthly savings (based on prevented failures)
-  // Average cost per failure: ~15,000 OMR
-  // Estimated failures prevented per month based on cable status distribution
-  const criticalCables = mockCables.filter(cable => cable.status === 'critical').length;
-  const cautionCables = mockCables.filter(cable => cable.status === 'caution').length;
-  const preventedFailures = criticalCables + Math.floor(cautionCables * 0.6);
-  const monthlySavings = preventedFailures * 15000;
+  // Estimated monthly savings (Time Saved in Hours)
+  // Traditional: 10 hours per fault
+  // CableGuard: 0.5 hours per fault
+  // Savings: 9.5 hours per fault
+  const faultsDetected = 12; // Mock faults found this month
+  const monthlySavings = Math.round(faultsDetected * 9.5); // Hours saved
   
-  // System uptime (based on health)
-  const uptime = 94 + (systemHealth / 100) * 5; // 94-99%
+  const preventedFailures = faultsDetected; // Excavations Avoided (used loosely)
+  
+  // System uptime (Device readiness)
+  const uptime = 99.5;
   
   // Maintenance completed this month
-  const maintenanceCompleted = 12 + Math.floor(Math.random() * 8);
+  const maintenanceCompleted = 12;
   
   // Average response time in hours
-  const avgResponseTime = 2 + Math.random() * 2; // 2-4 hours
+  const avgResponseTime = 0.5; // 30 minutes
 
   return {
     totalCables,
@@ -33,9 +33,9 @@ const calculateKPIs = (): KPI => {
     systemHealth,
     monthlySavings,
     preventedFailures,
-    uptime: Math.round(uptime * 10) / 10,
+    uptime,
     maintenanceCompleted,
-    avgResponseTime: Math.round(avgResponseTime * 10) / 10,
+    avgResponseTime,
   };
 };
 
@@ -45,38 +45,38 @@ export const mockKPIs = calculateKPIs();
 export const historicalKPIs = [
   {
     month: 'Aug 2025',
-    systemHealth: 89,
-    preventedFailures: 3,
-    monthlySavings: 45000,
-    uptime: 94.2,
+    systemHealth: 96,
+    preventedFailures: 8,
+    monthlySavings: 75, // hours
+    uptime: 98.2,
   },
   {
     month: 'Sep 2025',
-    systemHealth: 91,
-    preventedFailures: 4,
-    monthlySavings: 60000,
-    uptime: 95.1,
+    systemHealth: 97,
+    preventedFailures: 10,
+    monthlySavings: 92, // hours
+    uptime: 98.5,
   },
   {
     month: 'Oct 2025',
-    systemHealth: 92,
-    preventedFailures: 5,
-    monthlySavings: 75000,
-    uptime: 95.8,
+    systemHealth: 97,
+    preventedFailures: 11,
+    monthlySavings: 105, // hours
+    uptime: 98.8,
   },
   {
     month: 'Nov 2025',
-    systemHealth: 94,
-    preventedFailures: 6,
-    monthlySavings: 90000,
-    uptime: 96.3,
+    systemHealth: 98,
+    preventedFailures: 14,
+    monthlySavings: 130, // hours
+    uptime: 99.1,
   },
   {
     month: 'Dec 2025',
-    systemHealth: 95,
-    preventedFailures: 8,
-    monthlySavings: 120000,
-    uptime: 97.1,
+    systemHealth: 98,
+    preventedFailures: 15,
+    monthlySavings: 142, // hours
+    uptime: 99.3,
   },
   {
     month: 'Jan 2026',
@@ -87,27 +87,26 @@ export const historicalKPIs = [
   },
 ];
 
-// Cost comparison data
+// Cost comparison data (Time & Money)
 export const costComparison = {
   traditional: {
-    annualCost: 2400000, // 2.4M OMR
-    unplannedDowntime: 156, // hours per year
-    failureRate: 24, // failures per year
-    maintenanceCost: 1800000,
-    downtimeCost: 600000,
+    annualCost: 15000, // Man-hours cost (mock)
+    unplannedDowntime: 240, // hours searching
+    failureRate: 24, // faults per year
+    maintenanceCost: 12000,
+    downtimeCost: 3000,
   },
   predictive: {
-    annualCost: 1200000, // 1.2M OMR
-    unplannedDowntime: 48, // hours per year
-    failureRate: 6, // failures per year
-    maintenanceCost: 900000,
-    downtimeCost: 300000,
-    systemCost: 200000, // Cost of predictive system
+    annualCost: 1500, // Man-hours cost
+    unplannedDowntime: 12, // hours searching
+    failureRate: 24, // faults per year
+    maintenanceCost: 1000,
+    downtimeCost: 500,
+    systemCost: 5000, // Device cost
   },
   savings: {
-    annual: 1200000, // 50% reduction
-    roi: 600, // 600% ROI
-    paybackPeriod: 2, // months
+    annual: 13500,
+    roi: 270, // %
+    paybackPeriod: 4, // months
   },
 };
-

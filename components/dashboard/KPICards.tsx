@@ -1,26 +1,27 @@
 'use client';
 
 import { Card } from '@/components/shared/Card';
-import { Cable, TrendingUp, AlertCircle, DollarSign } from 'lucide-react';
+import { Cable, TrendingUp, AlertCircle, Clock } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
 import { useAppStore } from '@/lib/store/appStore';
-import { formatCurrency, formatPercentage } from '@/lib/utils/formatters';
+import { formatNumber, formatPercentage } from '@/lib/utils/formatters';
 import { motion } from 'framer-motion';
 
 export function KPICards() {
   const { t, language } = useLanguage();
   const { kpis } = useAppStore();
+  const isRTL = language === 'ar';
 
   const kpiData = [
     {
-      title: t('totalCables'),
-      value: kpis.totalCables.toString(),
+      title: t('totalCables'), // Now "Total Scans"
+      value: formatNumber(kpis.totalCables),
       icon: Cable,
       color: 'bg-blue-500',
       trend: null,
     },
     {
-      title: t('activeAlerts'),
+      title: t('activeAlerts'), // Now "Faults Detected"
       value: kpis.activeAlerts.toString(),
       icon: AlertCircle,
       color: kpis.activeAlerts > 5 ? 'bg-red-500' : 'bg-yellow-500',
@@ -28,16 +29,16 @@ export function KPICards() {
       pulse: kpis.activeAlerts > 0,
     },
     {
-      title: t('systemHealth'),
+      title: t('systemHealth'), // Now "System Accuracy"
       value: formatPercentage(kpis.systemHealth),
       icon: TrendingUp,
       color: 'bg-green-500',
       trend: '+2%',
     },
     {
-      title: t('monthlySavings'),
-      value: formatCurrency(kpis.monthlySavings, language),
-      icon: DollarSign,
+      title: t('monthlySavings'), // Now "Time Saved"
+      value: `${kpis.monthlySavings} ${isRTL ? 'ساعة' : 'Hrs'}`, // Assuming mock data is hours now
+      icon: Clock,
       color: 'bg-oq-gold',
       trend: '+15%',
     },
@@ -77,4 +78,3 @@ export function KPICards() {
     </div>
   );
 }
-

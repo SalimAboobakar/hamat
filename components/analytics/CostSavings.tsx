@@ -4,32 +4,35 @@ import { Card } from '@/components/shared/Card';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
 import { costComparison } from '@/lib/data/mockKPIs';
 import { formatCurrency, formatPercentage } from '@/lib/utils/formatters';
-import { TrendingDown, TrendingUp, DollarSign } from 'lucide-react';
+import { TrendingDown, TrendingUp, Clock, Zap } from 'lucide-react';
 
 export function CostSavings() {
   const { t, language } = useLanguage();
 
   const comparisonData = [
     {
-      title: language === 'ar' ? 'التكلفة السنوية' : 'Annual Cost',
+      title: language === 'ar' ? 'تكلفة العمالة السنوية' : 'Annual Labor Cost',
       traditional: costComparison.traditional.annualCost,
       predictive: costComparison.predictive.annualCost,
+      isCurrency: true
     },
     {
-      title: language === 'ar' ? 'وقت التوقف غير المخطط' : 'Unplanned Downtime',
+      title: language === 'ar' ? 'وقت البحث عن الأعطال' : 'Fault Search Time',
       traditional: `${costComparison.traditional.unplannedDowntime} hrs`,
       predictive: `${costComparison.predictive.unplannedDowntime} hrs`,
+      isCurrency: false
     },
     {
-      title: language === 'ar' ? 'معدل الفشل' : 'Failure Rate',
-      traditional: `${costComparison.traditional.failureRate}/year`,
-      predictive: `${costComparison.predictive.failureRate}/year`,
+      title: language === 'ar' ? 'معدل الدقة' : 'Accuracy Rate',
+      traditional: `~40%`,
+      predictive: `99%`,
+      isCurrency: false
     },
   ];
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      {/* ROI Card */}
+      {/* Efficiency / ROI Card */}
       <Card className="p-6 bg-gradient-to-br from-green-50 to-green-100 border-2 border-green-200">
         <div className="flex items-center gap-3 mb-4">
           <div className="p-3 bg-green-500 rounded-lg">
@@ -43,7 +46,7 @@ export function CostSavings() {
             {formatPercentage(costComparison.savings.roi)}
           </div>
           <p className="text-sm text-gray-700">
-            {language === 'ar' ? 'العائد على الاستثمار' : 'Return on Investment'}
+            {language === 'ar' ? 'تحسين الكفاءة' : 'Efficiency Gain'}
           </p>
         </div>
 
@@ -56,28 +59,30 @@ export function CostSavings() {
         </div>
       </Card>
 
-      {/* Annual Savings */}
+      {/* Annual Savings (Time & Money) */}
       <Card className="p-6 bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-200">
         <div className="flex items-center gap-3 mb-4">
           <div className="p-3 bg-blue-500 rounded-lg">
-            <DollarSign className="w-6 h-6 text-white" />
+            <Clock className="w-6 h-6 text-white" />
           </div>
-          <h3 className="text-lg font-bold text-gray-900">{t('costSavings')}</h3>
+          <h3 className="text-lg font-bold text-gray-900">{language === 'ar' ? 'الوقت الموفر' : 'Time Saved'}</h3>
         </div>
         
         <div className="text-center mb-4">
           <div className="text-3xl font-bold text-blue-600 mb-2">
-            {formatCurrency(costComparison.savings.annual, language)}
+             95%
           </div>
           <p className="text-sm text-gray-700">
-            {language === 'ar' ? 'التوفير السنوي' : 'Annual Savings'}
+            {language === 'ar' ? 'تقليل وقت التوقف' : 'Reduction in Downtime'}
           </p>
         </div>
 
         <div className="pt-4 border-t border-blue-200">
           <div className="flex items-center justify-center gap-2 text-green-600">
-            <TrendingDown className="w-4 h-4" />
-            <p className="text-sm font-medium">50% {t('traditional')} {language === 'ar' ? 'تخفيض' : 'reduction'}</p>
+             <Zap className="w-4 h-4" />
+             <p className="text-sm font-medium">
+               {language === 'ar' ? 'أسرع بـ 20 مرة' : '20x Faster Resolution'}
+             </p>
           </div>
         </div>
       </Card>
@@ -94,7 +99,7 @@ export function CostSavings() {
                 <div className="p-2 bg-red-50 rounded text-center">
                   <p className="text-xs text-red-600 font-medium">{t('traditional')}</p>
                   <p className="text-sm font-bold text-red-700">
-                    {typeof item.traditional === 'number' 
+                    {item.isCurrency && typeof item.traditional === 'number' 
                       ? formatCurrency(item.traditional, language)
                       : item.traditional}
                   </p>
@@ -102,7 +107,7 @@ export function CostSavings() {
                 <div className="p-2 bg-green-50 rounded text-center">
                   <p className="text-xs text-green-600 font-medium">{t('predictive')}</p>
                   <p className="text-sm font-bold text-green-700">
-                    {typeof item.predictive === 'number'
+                    {item.isCurrency && typeof item.predictive === 'number'
                       ? formatCurrency(item.predictive, language)
                       : item.predictive}
                   </p>
@@ -115,4 +120,3 @@ export function CostSavings() {
     </div>
   );
 }
-

@@ -1,10 +1,10 @@
 'use client';
 
 import { Card } from '@/components/shared/Card';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
 import { useAppStore } from '@/lib/store/appStore';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
-import { format } from 'date-fns';
+import { motion } from 'framer-motion';
 
 interface SensorChartsProps {
   cableId: string;
@@ -12,109 +12,114 @@ interface SensorChartsProps {
 
 export function SensorCharts({ cableId }: SensorChartsProps) {
   const { t, language } = useLanguage();
-  const { getSensorHistory } = useAppStore();
+  const isRTL = language === 'ar';
   
-  const sensorHistory = getSensorHistory(cableId);
-  
-  // Get last 50 data points for better performance
-  const chartData = sensorHistory.slice(-50).map(reading => ({
-    time: format(reading.timestamp, 'HH:mm'),
-    timestamp: reading.timestamp.getTime(),
-    temperature: parseFloat(reading.temperature.toFixed(1)),
-    current: parseFloat(reading.current.toFixed(1)),
-    vibration: parseFloat(reading.vibration.toFixed(1)),
-    pdLevel: parseFloat(reading.pdLevel.toFixed(0)),
-  }));
+  // Get cable from store
+  const { cables } = useAppStore();
+  const cable = cables.find(c => c.id === cableId);
 
-  const charts = [
-    {
-      title: t('temperature'),
-      dataKey: 'temperature',
-      color: '#f97316',
-      unit: '°C',
-      thresholdWarning: 40,
-      thresholdCritical: 50,
-    },
-    {
-      title: t('current'),
-      dataKey: 'current',
-      color: '#3b82f6',
-      unit: 'A',
-      thresholdWarning: 10,
-      thresholdCritical: 14,
-    },
-    {
-      title: t('vibration'),
-      dataKey: 'vibration',
-      color: '#8b5cf6',
-      unit: 'Hz',
-      thresholdWarning: 5,
-      thresholdCritical: 8,
-    },
-    {
-      title: t('pdLevel'),
-      dataKey: 'pdLevel',
-      color: '#ef4444',
-      unit: 'pC',
-      thresholdWarning: 200,
-      thresholdCritical: 300,
-    },
-  ];
+  // Check if cable exists
+  if (!cable) {
+    return (
+      <Card className="p-6">
+        <p className="text-gray-600">Cable not found</p>
+      </Card>
+    );
+  }
+
+  // Generate TDR-like signal data
+  const generateSignalData = () => {
+    const data = [];
+    const points = 100;
+    const faultLocationIndex = 42; // Simulated fault at 42% of the way
+
+    for (let i = 0; i < points; i++) {
+      let amplitude = Math.random() * 2 - 1; // Base noise
+      
+      // Transmission Pulse (Start)
+      if (i < 5) {
+        amplitude = 80 - (i * 10) + (Math.random() * 5);
+      }
+      
+      // Fault Reflection
+      if (Math.abs(i - faultLocationIndex) < 3) {
+        amplitude = cable.status === 'healthy' ? (Math.random() * 5) : 45 + (Math.random() * 10);
+        if (cable.status === 'critical') amplitude += 20;
+      }
+
+      // End of Cable Reflection
+      if (i > 90) {
+        amplitude = 30 + (Math.random() * 5);
+      }
+
+      data.push({
+        distance: i * ((cable.length || 100) / 100), // Map to cable length with fallback
+        amplitude: amplitude,
+      });
+    }
+    return data;
+  };
+
+  const data = generateSignalData();
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {charts.map((chart) => (
-        <Card key={chart.dataKey} className="p-6">
-          <h3 className="text-lg font-bold text-gray-900 mb-4">
-            {chart.title} ({chart.unit})
-          </h3>
-          <ResponsiveContainer width="100%" height={250}>
-            <LineChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-              <XAxis
-                dataKey="time"
-                stroke="#6b7280"
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.2 }}
+    >
+      <Card className="p-6">
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h3 className="text-lg font-bold text-gray-900">{t('signalReflection')} (TDR Trace)</h3>
+            <p className="text-sm text-gray-500 mt-1">
+              {t('cableLength')}: {cable.length || 100}m | VF: {cable.velocityFactor || 0.66}
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="w-3 h-3 bg-blue-500 rounded-full"></span>
+            <span className="text-sm text-gray-600">Signal Amplitude (dB)</span>
+          </div>
+        </div>
+
+        <div className="h-[300px] w-full">
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart data={data}>
+              <defs>
+                <linearGradient id="colorSignal" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.8}/>
+                  <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" />
+              <XAxis 
+                dataKey="distance" 
+                label={{ value: isRTL ? 'المسافة (متر)' : 'Distance (m)', position: 'insideBottomRight', offset: -5 }} 
                 tick={{ fontSize: 12 }}
               />
-              <YAxis
-                stroke="#6b7280"
+              <YAxis 
+                domain={[-20, 100]} 
+                label={{ value: 'dB', angle: -90, position: 'insideLeft' }}
                 tick={{ fontSize: 12 }}
               />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: '#fff',
-                  border: '1px solid #e5e7eb',
-                  borderRadius: '8px',
-                  padding: '8px',
-                }}
-                labelStyle={{ color: '#374151', fontWeight: 'bold' }}
+              <Tooltip 
+                contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                labelStyle={{ color: '#6b7280' }}
               />
-              <ReferenceLine
-                y={chart.thresholdWarning}
-                stroke="#fbbf24"
-                strokeDasharray="3 3"
-                label={{ value: 'Warning', position: 'right', fill: '#fbbf24', fontSize: 10 }}
-              />
-              <ReferenceLine
-                y={chart.thresholdCritical}
-                stroke="#ef4444"
-                strokeDasharray="3 3"
-                label={{ value: 'Critical', position: 'right', fill: '#ef4444', fontSize: 10 }}
-              />
-              <Line
-                type="monotone"
-                dataKey={chart.dataKey}
-                stroke={chart.color}
+              <Area 
+                type="monotone" 
+                dataKey="amplitude" 
+                stroke="#3b82f6" 
                 strokeWidth={2}
-                dot={false}
-                isAnimationActive={true}
-                animationDuration={300}
+                fillOpacity={1} 
+                fill="url(#colorSignal)" 
               />
-            </LineChart>
+              {/* Reference Line for Fault threshold */}
+              <ReferenceLine y={20} stroke="red" strokeDasharray="3 3" label="Fault Threshold" />
+            </AreaChart>
           </ResponsiveContainer>
-        </Card>
-      ))}
-    </div>
+        </div>
+      </Card>
+    </motion.div>
   );
 }
-

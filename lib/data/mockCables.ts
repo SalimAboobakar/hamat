@@ -36,6 +36,23 @@ const generateCableData = (): Cable[] => {
   const cables: Cable[] = [];
   let cableNumber = 1;
 
+  // TDR Cable Properties
+  const cableTypes = [
+    { type: '4-20mA', vf: 0.66 },
+    { type: 'Control', vf: 0.70 },
+    { type: 'Instrumentation', vf: 0.65 },
+    { type: 'Communication', vf: 0.78 }
+  ] as const;
+
+  const getRandomCableProps = () => {
+    const typeObj = cableTypes[Math.floor(Math.random() * cableTypes.length)];
+    return {
+      cableType: typeObj.type,
+      velocityFactor: typeObj.vf,
+      length: Math.floor(50 + Math.random() * 450) // 50m to 500m
+    };
+  };
+
   // Helper function to generate realistic sensor values based on status
   const generateSensorValues = (status: CableStatus) => {
     switch (status) {
@@ -93,6 +110,7 @@ const generateCableData = (): Cable[] => {
     const cableId = `CB-${String(cableNumber).padStart(3, '0')}`;
     const status = index === 0 ? 'critical' : getStatus(cableNumber);
     const sensorValues = generateSensorValues(status);
+    const props = getRandomCableProps();
     
     // Sohar Refinery coordinates: ~24.475, 56.635
     const lat = 24.475 + (Math.random() - 0.5) * 0.02;
@@ -115,6 +133,7 @@ const generateCableData = (): Cable[] => {
       installDate: new Date(Date.now() - (365 * 3 + Math.random() * 365 * 4) * 24 * 60 * 60 * 1000), 
       unit: location.en.split('-')[0].trim(),
       voltage: 11000, 
+      ...props
     });
 
     cableNumber++;
@@ -125,6 +144,7 @@ const generateCableData = (): Cable[] => {
     const cableId = `CB-${String(cableNumber).padStart(3, '0')}`;
     const status = getStatus(cableNumber);
     const sensorValues = generateSensorValues(status);
+    const props = getRandomCableProps();
     
     // Mina Al Fahal coordinates: ~23.635, 58.535
     const lat = 23.635 + (Math.random() - 0.5) * 0.02;
@@ -147,6 +167,7 @@ const generateCableData = (): Cable[] => {
       installDate: new Date(Date.now() - (365 * 3 + Math.random() * 365 * 4) * 24 * 60 * 60 * 1000),
       unit: location.en.split('-')[0].trim(),
       voltage: 11000,
+      ...props
     });
 
     cableNumber++;
@@ -157,6 +178,7 @@ const generateCableData = (): Cable[] => {
     const cableId = `CB-${String(cableNumber).padStart(3, '0')}`;
     const status = getStatus(cableNumber);
     const sensorValues = generateSensorValues(status);
+    const props = getRandomCableProps();
     
     // Duqm Refinery coordinates: ~19.575, 57.715
     const lat = 19.575 + (Math.random() - 0.5) * 0.02;
@@ -179,6 +201,7 @@ const generateCableData = (): Cable[] => {
       installDate: new Date(Date.now() - (365 * 3 + Math.random() * 365 * 4) * 24 * 60 * 60 * 1000),
       unit: location.en.split('-')[0].trim(),
       voltage: 11000,
+      ...props
     });
 
     cableNumber++;
@@ -200,4 +223,3 @@ export const getCablesByZone = (zone: 'Sohar' | 'Duqm' | 'Muscat'): Cable[] => {
 export const getCablesByStatus = (status: CableStatus): Cable[] => {
   return mockCables.filter(cable => cable.status === status);
 };
-

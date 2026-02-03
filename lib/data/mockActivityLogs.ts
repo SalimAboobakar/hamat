@@ -79,3 +79,4 @@ export const getActivitiesByCableId = (cableId: string): ActivityLog[] => {
   return mockActivityLogs.filter(log => log.cableId === cableId);
 };
 
+

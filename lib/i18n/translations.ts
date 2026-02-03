@@ -7,15 +7,41 @@ export const translations = {
     maintenance: 'Maintenance',
     reports: 'Reports',
     settings: 'Settings',
-    monitoring: 'Monitoring',
+    monitoring: 'Fault Detection', // Changed from Monitoring
     
+    // Header
+    appName: 'CableGuard AI',
+    tagline: 'AI-Powered Fault Detection for Buried Industrial Cables',
+
+    // TDR Specific
+    tdrAnalysis: 'TDR Analysis',
+    faultLocation: 'Fault Location',
+    velocityFactor: 'Velocity Factor (VF)',
+    reflectionTime: 'Reflection Time',
+    calculatedDistance: 'Calculated Distance',
+    cableLength: 'Cable Length',
+    measure: 'Measure',
+    calculate: 'Calculate',
+    signalReflection: 'Signal Reflection',
+    impedanceMismatch: 'Impedance Mismatch',
+    accuracy: 'Accuracy',
+    excavationZone: 'Excavation Zone',
+    portableDevice: 'Portable Device',
+    connectTestLocate: 'Connect. Test. Locate.',
+    
+    // Cable Types
+    type420mA: '4-20mA Signal',
+    typeControl: '24-48VDC Control',
+    typeInstrumentation: 'Instrumentation',
+    typeCommunication: 'Communication',
+
     // KPIs
-    totalCables: 'Total Cables',
-    activeAlerts: 'Active Alerts',
-    systemHealth: 'System Health',
-    monthlySavings: 'Monthly Savings',
-    preventedFailures: 'Prevented Failures',
-    uptime: 'System Uptime',
+    totalCables: 'Total Scans', // Changed context
+    activeAlerts: 'Faults Detected', // Changed context
+    systemHealth: 'System Accuracy', // Changed context
+    monthlySavings: 'Time Saved', // Changed context
+    preventedFailures: 'Excavation Avoided', // Changed context
+    uptime: 'Device Uptime',
     
     // Status
     healthy: 'Healthy',
@@ -36,26 +62,26 @@ export const translations = {
     high: 'High',
     
     // Actions
-    viewDetails: 'View Details',
-    createWorkOrder: 'Create Work Order',
-    exportReport: 'Export Report',
-    simulateAlert: 'Simulate Alert',
+    viewDetails: 'View Analysis',
+    createWorkOrder: 'Create Report',
+    exportReport: 'Export Data',
+    simulateAlert: 'Simulate Fault',
     resetDemo: 'Reset Demo',
-    refresh: 'Refresh',
+    refresh: 'New Scan',
     filter: 'Filter',
-    search: 'Search',
+    search: 'Search ID',
     
     // Cable Details
     cableId: 'Cable ID',
     location: 'Location',
     zone: 'Zone',
-    temperature: 'Temperature',
-    current: 'Current',
-    vibration: 'Vibration',
-    pdLevel: 'PD Level',
-    failureProbability: 'Failure Probability',
-    daysToFailure: 'Days to Failure',
-    lastMaintenance: 'Last Maintenance',
+    temperature: 'Signal Noise', // Context change
+    current: 'Resistance', // Context change
+    vibration: 'Impedance', // Context change
+    pdLevel: 'Return Loss', // Context change
+    failureProbability: 'Fault Probability',
+    daysToFailure: 'Severity Level', // Context change
+    lastMaintenance: 'Last Scan',
     installDate: 'Install Date',
     
     // Zones
@@ -64,34 +90,34 @@ export const translations = {
     duqm: 'Duqm Refinery',
     
     // Alerts
-    alerts: 'Alerts',
-    recentAlerts: 'Recent Alerts',
-    alertHistory: 'Alert History',
+    alerts: 'Fault Alerts',
+    recentAlerts: 'Recent Faults',
+    alertHistory: 'Fault History',
     acknowledge: 'Acknowledge',
     
     // Analytics
-    costSavings: 'Cost Savings',
-    roi: 'Return on Investment',
-    trends: 'Trends',
-    comparison: 'Comparison',
-    beforeAfter: 'Before/After',
-    traditional: 'Traditional Maintenance',
-    predictive: 'Predictive Maintenance',
+    costSavings: 'Efficiency Metrics',
+    roi: 'Time ROI',
+    trends: 'Fault Trends',
+    comparison: 'Method Comparison',
+    beforeAfter: 'Manual vs TDR',
+    traditional: 'Traditional Excavation',
+    predictive: 'CableGuard AI TDR',
     
     // Maintenance
-    scheduledMaintenance: 'Scheduled Maintenance',
-    maintenanceHistory: 'Maintenance History',
+    scheduledMaintenance: 'Scheduled Scans',
+    maintenanceHistory: 'Scan History',
     technician: 'Technician',
     assignedTo: 'Assigned To',
     scheduledDate: 'Scheduled Date',
-    estimatedCost: 'Estimated Cost',
-    actualCost: 'Actual Cost',
+    estimatedCost: 'Est. Resolution Time',
+    actualCost: 'Actual Time',
     
     // Predictions
-    aiPrediction: 'AI Prediction',
+    aiPrediction: 'AI Fault Classification',
     confidence: 'Confidence',
-    recommendations: 'Recommendations',
-    costImpact: 'Cost Impact',
+    recommendations: 'Action Plan',
+    costImpact: 'Time Impact',
     
     // Time
     today: 'Today',
@@ -102,17 +128,17 @@ export const translations = {
     last30Days: 'Last 30 Days',
     
     // Currency
-    omr: 'OMR',
+    omr: 'Hours', // Changed unit context for some metrics
     
     // Units
-    celsius: '°C',
-    amperes: 'A',
-    hertz: 'Hz',
-    picocoulombs: 'pC',
+    celsius: 'dB', // Changed unit
+    amperes: 'Ω', // Changed unit
+    hertz: 'MHz', // Changed unit
+    picocoulombs: 'dB', // Changed unit
     
     // Common
-    loading: 'Loading...',
-    noData: 'No data available',
+    loading: 'Processing Signal...',
+    noData: 'No signal data',
     error: 'Error',
     success: 'Success',
     cancel: 'Cancel',
@@ -131,15 +157,41 @@ export const translations = {
     maintenance: 'الصيانة',
     reports: 'التقارير',
     settings: 'الإعدادات',
-    monitoring: 'المراقبة',
+    monitoring: 'كشف الأعطال', // Changed
     
+    // Header
+    appName: 'CableGuard AI',
+    tagline: 'كشف الأعطال للكابلات الصناعية المدفونة بالذكاء الاصطناعي',
+
+    // TDR Specific
+    tdrAnalysis: 'تحليل TDR',
+    faultLocation: 'تحديد موقع العطل',
+    velocityFactor: 'معامل السرعة (VF)',
+    reflectionTime: 'وقت الانعكاس',
+    calculatedDistance: 'المسافة المحسوبة',
+    cableLength: 'طول الكابل',
+    measure: 'قياس',
+    calculate: 'حساب',
+    signalReflection: 'انعكاس الإشارة',
+    impedanceMismatch: 'عدم تطابق المعاوقة',
+    accuracy: 'الدقة',
+    excavationZone: 'منطقة الحفر',
+    portableDevice: 'جهاز محمول',
+    connectTestLocate: 'وصل. افحص. حدد.',
+
+    // Cable Types
+    type420mA: 'إشارة 4-20mA',
+    typeControl: 'تحكم 24-48VDC',
+    typeInstrumentation: 'أجهزة دقيقة',
+    typeCommunication: 'اتصالات',
+
     // KPIs
-    totalCables: 'إجمالي الكابلات',
-    activeAlerts: 'التنبيهات النشطة',
-    systemHealth: 'صحة النظام',
-    monthlySavings: 'التوفير الشهري',
-    preventedFailures: 'الأعطال المنعة',
-    uptime: 'وقت التشغيل',
+    totalCables: 'إجمالي الفحوصات',
+    activeAlerts: 'أعطال مكتشفة',
+    systemHealth: 'دقة النظام',
+    monthlySavings: 'الوقت الموفر',
+    preventedFailures: 'تجنب الحفر',
+    uptime: 'جاهزية الجهاز',
     
     // Status
     healthy: 'سليم',
@@ -160,12 +212,12 @@ export const translations = {
     high: 'عالي',
     
     // Actions
-    viewDetails: 'عرض التفاصيل',
-    createWorkOrder: 'إنشاء أمر عمل',
-    exportReport: 'تصدير التقرير',
-    simulateAlert: 'محاكاة تنبيه',
-    resetDemo: 'إعادة تعيين العرض',
-    refresh: 'تحديث',
+    viewDetails: 'عرض التحليل',
+    createWorkOrder: 'إنشاء تقرير',
+    exportReport: 'تصدير البيانات',
+    simulateAlert: 'محاكاة عطل',
+    resetDemo: 'إعادة تعيين',
+    refresh: 'فحص جديد',
     filter: 'تصفية',
     search: 'بحث',
     
@@ -173,13 +225,13 @@ export const translations = {
     cableId: 'معرف الكابل',
     location: 'الموقع',
     zone: 'المنطقة',
-    temperature: 'درجة الحرارة',
-    current: 'التيار',
-    vibration: 'الاهتزاز',
-    pdLevel: 'مستوى PD',
-    failureProbability: 'احتمالية الفشل',
-    daysToFailure: 'أيام حتى الفشل',
-    lastMaintenance: 'آخر صيانة',
+    temperature: 'ضجيج الإشارة',
+    current: 'المقاومة',
+    vibration: 'المعاوقة',
+    pdLevel: 'فقد العودة',
+    failureProbability: 'احتمالية العطل',
+    daysToFailure: 'مستوى الخطورة',
+    lastMaintenance: 'آخر فحص',
     installDate: 'تاريخ التركيب',
     
     // Zones
@@ -188,34 +240,34 @@ export const translations = {
     duqm: 'مصفاة الدقم',
     
     // Alerts
-    alerts: 'التنبيهات',
-    recentAlerts: 'التنبيهات الأخيرة',
-    alertHistory: 'سجل التنبيهات',
+    alerts: 'تنبيهات الأعطال',
+    recentAlerts: 'أعطال حديثة',
+    alertHistory: 'سجل الأعطال',
     acknowledge: 'إقرار',
     
     // Analytics
-    costSavings: 'توفير التكاليف',
-    roi: 'العائد على الاستثمار',
-    trends: 'الاتجاهات',
-    comparison: 'المقارنة',
-    beforeAfter: 'قبل/بعد',
-    traditional: 'الصيانة التقليدية',
-    predictive: 'الصيانة التنبؤية',
+    costSavings: 'مؤشرات الكفاءة',
+    roi: 'عائد الوقت',
+    trends: 'اتجاهات الأعطال',
+    comparison: 'مقارنة الطرق',
+    beforeAfter: 'يدوي vs TDR',
+    traditional: 'الحفر التقليدي',
+    predictive: 'CableGuard AI',
     
     // Maintenance
-    scheduledMaintenance: 'الصيانة المجدولة',
-    maintenanceHistory: 'سجل الصيانة',
+    scheduledMaintenance: 'فحوصات مجدولة',
+    maintenanceHistory: 'سجل الفحص',
     technician: 'الفني',
     assignedTo: 'مسند إلى',
     scheduledDate: 'التاريخ المجدول',
-    estimatedCost: 'التكلفة المقدرة',
-    actualCost: 'التكلفة الفعلية',
+    estimatedCost: 'وقت الإصلاح المقدر',
+    actualCost: 'الوقت الفعلي',
     
     // Predictions
-    aiPrediction: 'التنبؤ بالذكاء الاصطناعي',
+    aiPrediction: 'تصنيف العطل (AI)',
     confidence: 'الثقة',
-    recommendations: 'التوصيات',
-    costImpact: 'تأثير التكلفة',
+    recommendations: 'خطة العمل',
+    costImpact: 'تأثير الوقت',
     
     // Time
     today: 'اليوم',
@@ -226,17 +278,17 @@ export const translations = {
     last30Days: 'آخر 30 يومًا',
     
     // Currency
-    omr: 'ريال عماني',
+    omr: 'ساعة',
     
     // Units
-    celsius: '°س',
-    amperes: 'أمبير',
-    hertz: 'هرتز',
-    picocoulombs: 'بيكوكولوم',
+    celsius: 'ديسيبل',
+    amperes: 'أوم',
+    hertz: 'ميجاهرتز',
+    picocoulombs: 'ديسيبل',
     
     // Common
-    loading: 'جاري التحميل...',
-    noData: 'لا توجد بيانات',
+    loading: 'جاري معالجة الإشارة...',
+    noData: 'لا توجد إشارة',
     error: 'خطأ',
     success: 'نجاح',
     cancel: 'إلغاء',
@@ -251,4 +303,3 @@ export const translations = {
 
 export type TranslationKey = keyof typeof translations.en;
 export type Language = 'en' | 'ar';
-

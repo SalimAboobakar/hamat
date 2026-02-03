@@ -24,3 +24,4 @@ export function Card({ children, className, hover = false, onClick }: CardProps)
   );
 }
 
+

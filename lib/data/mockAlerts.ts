@@ -88,3 +88,4 @@ export const getAlertsBySeverity = (severity: AlertSeverity): Alert[] => {
   return mockAlerts.filter(alert => alert.severity === severity);
 };
 
+

@@ -21,6 +21,9 @@ export interface Cable {
   installDate: Date;
   unit: string;
   voltage: number;
+  velocityFactor: number;
+  cableType: '4-20mA' | 'Control' | 'Instrumentation' | 'Communication';
+  length: number;
 }
 
 export interface Alert {
