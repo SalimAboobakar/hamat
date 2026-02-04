@@ -4,17 +4,20 @@ import { KPICards } from '@/components/dashboard/KPICards';
 import { CableMap } from '@/components/dashboard/CableMap';
 import { AlertsPanel } from '@/components/dashboard/AlertsPanel';
 import { RecentActivity } from '@/components/dashboard/RecentActivity';
+import { DeviceStatus } from '@/components/dashboard/DeviceStatus';
 import { TDRCalculator } from '@/components/tdr/TDRCalculator';
 import { TDREquation } from '@/components/tdr/TDREquation';
 import { DeviceMockup } from '@/components/tdr/DeviceMockup';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
 import { useAppStore } from '@/lib/store/appStore';
-import { PlayCircle, RotateCcw } from 'lucide-react';
+import { PlayCircle, RotateCcw, FileText } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 export default function DashboardPage() {
   const { t, language } = useLanguage();
   const { isDemoScenarioActive, startDemoScenario, stopDemoScenario, resetData } = useAppStore();
   const isRTL = language === 'ar';
+  const router = useRouter();
 
   const handleStartDemo = () => {
     if (isDemoScenarioActive) {
@@ -60,6 +63,20 @@ export default function DashboardPage() {
             {isDemoScenarioActive ? (isRTL ? 'إيقاف العرض' : 'Stop Demo') : t('simulateAlert')}
           </button>
         </div>
+      </div>
+
+      {/* Device Status - TDR Connection */}
+      <DeviceStatus />
+
+      {/* Generate Report Button */}
+      <div className="flex justify-center">
+        <button
+          onClick={() => router.push('/service-report')}
+          className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-oq-gold to-yellow-400 hover:from-yellow-400 hover:to-oq-gold text-oq-navy rounded-lg transition-all font-bold shadow-lg hover:shadow-xl transform hover:scale-105"
+        >
+          <FileText className="w-5 h-5" />
+          {t('generateReport')}
+        </button>
       </div>
 
       {/* KPI Cards - Context Shifted to Fault Detection */}

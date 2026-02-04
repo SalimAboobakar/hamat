@@ -1,32 +1,41 @@
-# OQ RPI Cable Health Monitoring Dashboard MVP
+# CableGuard AI - Portable TDR Service System
 
-A professional, enterprise-grade cable health monitoring dashboard designed for OQ RPI (Oman Oil Refineries) that showcases predictive maintenance capabilities for industrial control cables at Sohar and Duqm refineries.
+A professional, enterprise-grade **portable TDR (Time Domain Reflectometry) service system** designed for OQ RPI (Oman Oil Refineries) that enables field technicians to quickly detect, locate, and diagnose faults in buried industrial cables at Sohar and Duqm refineries.
 
 ## 🎯 Project Overview
 
-This MVP demonstrates a complete predictive maintenance solution with:
-- **Real-time cable health monitoring** across 33 cables
-- **AI-powered failure prediction** with confidence scores
+This system demonstrates a **portable field service solution** with:
+- **On-demand cable testing** using portable TDR device
+- **AI-powered fault classification** with precise location mapping
 - **Bilingual support** (English/Arabic) with full RTL implementation
-- **Animated data visualization** with Recharts and interactive maps
-- **Cost savings analytics** showing ROI and business impact
-- **Work order management** for maintenance scheduling
+- **Interactive TDR analysis** with signal reflection visualization
+- **Comprehensive service reports** for documentation
+- **Field-ready interface** optimized for laptop/tablet use
+- **Offline capability** - works without internet connection
 
 ## ✨ Key Features
 
 ### Dashboard
-- **KPI Cards**: Total cables, active alerts, system health, monthly savings
-- **Interactive Map**: Leaflet-based facility maps for Sohar and Duqm refineries
-- **Real-time Alerts Panel**: Live notifications with severity indicators
-- **Activity Timeline**: Recent system activities and maintenance logs
-- **Demo Scenario**: Simulate cable degradation from healthy → critical
+- **Device Status**: Real-time TDR device connection, battery level, signal quality
+- **Service KPIs**: Total scans performed, faults detected, time saved
+- **Interactive Map**: Visual representation of tested cables across refineries
+- **TDR Calculator**: Distance-to-fault calculation with velocity factor
+- **Recent Faults**: Quick access to detected issues
+- **Demo Scenario**: Simulate TDR test for presentation purposes
 
-### Cable Detail View
-- **Comprehensive Cable Information**: Location, coordinates, installation date
-- **Live Sensor Charts**: Temperature, Current, Vibration, PD Level trends
-- **AI Prediction Panel**: Failure probability, days to failure, confidence score
-- **Maintenance Recommendations**: Actionable insights based on sensor data
-- **Cost Impact Analysis**: Estimated repair/replacement costs
+### TDR Analysis View
+- **Signal Reflection Chart**: Visual TDR trace showing fault location
+- **Comprehensive Cable Information**: Location, coordinates, cable specifications
+- **Fault Classification**: AI-powered analysis of fault type and severity
+- **Distance Calculation**: Precise fault location in meters
+- **Action Recommendations**: Specific repair/excavation guidance
+
+### Service Report
+- **Comprehensive PDF Report**: Full summary of all cables tested
+- **Critical Findings**: Immediate action required items highlighted
+- **Maintenance Schedule**: Recommended follow-up actions
+- **Executive Summary**: High-level overview for management
+- **Print/Export**: Ready for documentation and compliance
 
 ### Analytics
 - **ROI Calculator**: 600% return on investment
@@ -40,12 +49,33 @@ This MVP demonstrates a complete predictive maintenance solution with:
 - **Status Tracking**: Pending, In Progress, Completed, Cancelled
 - **Cost Management**: Estimated vs actual costs
 
+## 📱 Service Workflow
+
+### Typical Field Service Scenario:
+
+1. **Technician arrives at site** with portable TDR device + laptop
+2. **Connect device** - System shows device status (battery, signal quality)
+3. **Select cable** to test from map or enter cable ID
+4. **Run TDR test** - Device sends signal and captures reflections
+5. **AI Analysis** - System classifies fault and calculates distance
+6. **View results** - Precise location and recommended action
+7. **Generate report** - Comprehensive documentation for all tested cables
+8. **Submit findings** - Print/export PDF for records
+
+### Key Benefits:
+- ✅ **No excavation guesswork** - Know exact location before digging
+- ✅ **Save hours** - Find faults in minutes vs hours of manual inspection
+- ✅ **Professional reports** - Auto-generated documentation
+- ✅ **Works offline** - No internet required in field
+- ✅ **Bilingual** - English/Arabic for local workforce
+
 ## 🚀 Getting Started
 
 ### Prerequisites
 
 - Node.js 18+ and npm
 - Modern web browser (Chrome, Firefox, Safari, Edge)
+- TDR device (for actual field use - demo uses simulated data)
 
 ### Installation
 
@@ -128,23 +158,40 @@ npm start
 
 ## 🎯 Demo Scenario Walkthrough
 
-### For Presentations and Judges
+### For Presentations and Hackathon Judges
 
-1. **Start on Dashboard** - Shows healthy system (96% health)
-2. **Click "Simulate Alert"** - Triggers CB-001 degradation scenario
-3. **Watch Real-time Changes**:
-   - Temperature rises from 35°C → 58°C
-   - Status changes: Green → Yellow → Orange → Red
-   - Alert panel updates with new warnings
-   - KPI cards reflect increased active alerts
-4. **Navigate to CB-001**:
-   - Click on CB-001 in the map or alerts panel
-   - View detailed sensor charts showing degradation
-   - See AI prediction: 78% failure probability
-   - Review maintenance recommendations
-5. **Check Analytics** - Show cost savings and ROI metrics
-6. **Review Work Orders** - Demonstrate maintenance management
-7. **Reset Demo** - Click "Reset Demo" to return to initial state
+1. **Start on Dashboard** - Shows TDR device connected and ready
+   - Device status: Connected, 87% battery, 95% signal quality
+   - 23 cables already scanned across Sohar and Duqm refineries
+   
+2. **Click "Simulate Test"** - Demonstrates live TDR testing on CB-001
+   - Watch TDR signal trace animate in real-time
+   - Fault detected at specific distance
+   - AI classifies fault type and severity
+   
+3. **Explore TDR Calculator**:
+   - Input cable parameters (length, velocity factor)
+   - Calculate distance to fault
+   - See excavation zone visualization
+   
+4. **Navigate to Cable Details** (CB-001):
+   - View TDR signal reflection chart
+   - See precise fault location
+   - Review AI-powered recommendations
+   - Check estimated repair time
+   
+5. **Generate Service Report**:
+   - Click golden "Generate Report" button
+   - View comprehensive report for all 23 cables
+   - See critical findings highlighted
+   - Print/Export for documentation
+   
+6. **Check Interactive Map**:
+   - See all tested cables color-coded by status
+   - Click any cable to view its test results
+   - Filter by refinery (Sohar/Duqm)
+   
+7. **Reset Demo** - Return to initial state for next presentation
 
 ## 📊 Mock Data
 

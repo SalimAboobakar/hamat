@@ -65,11 +65,24 @@ export const translations = {
     viewDetails: 'View Analysis',
     createWorkOrder: 'Create Report',
     exportReport: 'Export Data',
-    simulateAlert: 'Simulate Fault',
+    simulateAlert: 'Simulate Test',
     resetDemo: 'Reset Demo',
     refresh: 'New Scan',
     filter: 'Filter',
     search: 'Search ID',
+    
+    // Device Connection
+    deviceConnected: 'Device Connected',
+    deviceDisconnected: 'Device Disconnected',
+    connectDevice: 'Connect TDR Device',
+    deviceStatus: 'Device Status',
+    batteryLevel: 'Battery Level',
+    signalQuality: 'Signal Quality',
+    generateReport: 'Generate Full Report',
+    downloadPDF: 'Download PDF',
+    serviceReport: 'Service Report',
+    testCompleted: 'Test Completed',
+    cablesScanned: 'Cables Scanned',
     
     // Cable Details
     cableId: 'Cable ID',
@@ -215,11 +228,24 @@ export const translations = {
     viewDetails: 'عرض التحليل',
     createWorkOrder: 'إنشاء تقرير',
     exportReport: 'تصدير البيانات',
-    simulateAlert: 'محاكاة عطل',
+    simulateAlert: 'محاكاة فحص',
     resetDemo: 'إعادة تعيين',
     refresh: 'فحص جديد',
     filter: 'تصفية',
     search: 'بحث',
+    
+    // Device Connection
+    deviceConnected: 'الجهاز متصل',
+    deviceDisconnected: 'الجهاز غير متصل',
+    connectDevice: 'توصيل جهاز TDR',
+    deviceStatus: 'حالة الجهاز',
+    batteryLevel: 'مستوى البطارية',
+    signalQuality: 'جودة الإشارة',
+    generateReport: 'إنشاء التقرير الشامل',
+    downloadPDF: 'تحميل PDF',
+    serviceReport: 'تقرير الخدمة',
+    testCompleted: 'اكتمل الفحص',
+    cablesScanned: 'كابلات تم فحصها',
     
     // Cable Details
     cableId: 'معرف الكابل',
