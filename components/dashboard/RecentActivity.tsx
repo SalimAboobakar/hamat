@@ -62,7 +62,7 @@ export function RecentActivity() {
                 <p className="text-sm text-gray-900">
                   {language === 'ar' ? activity.messageAr : activity.message}
                 </p>
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-gray-500 mt-1" suppressHydrationWarning>
                   {formatRelativeDate(activity.timestamp, language)}
                 </p>
               </div>

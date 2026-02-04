@@ -76,7 +76,7 @@ export function AlertsPanel() {
                     </p>
                     <div className="flex items-center gap-2 mt-1">
                       <Clock className="w-3 h-3" />
-                      <p className="text-xs opacity-75">
+                      <p className="text-xs opacity-75" suppressHydrationWarning>
                         {formatRelativeDate(alert.timestamp, language)}
                       </p>
                     </div>

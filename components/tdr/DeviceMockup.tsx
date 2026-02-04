@@ -19,26 +19,15 @@ const faultScenarios = [
     accuracy: '±0.5m',
   },
   {
-    distance: 87.3,
+    distance: 0,
     zone: 'Sector A, Unit 2',
     zoneAr: 'قطاع أ، وحدة 2',
-    status: 'warning' as const,
-    faultType: 'Impedance Mismatch',
-    faultTypeAr: 'عدم تطابق المعاوقة',
-    recommendation: 'Schedule inspection',
-    recommendationAr: 'جدولة فحص',
-    accuracy: '±1.0m',
-  },
-  {
-    distance: 156.8,
-    zone: 'Sector C, Unit 7',
-    zoneAr: 'قطاع ج، وحدة 7',
-    status: 'caution' as const,
-    faultType: 'Cable Degradation',
-    faultTypeAr: 'تدهور الكابل',
-    recommendation: 'Monitor condition',
-    recommendationAr: 'مراقبة الحالة',
-    accuracy: '±1.5m',
+    status: 'healthy' as const,
+    faultType: 'No Fault Detected',
+    faultTypeAr: 'لا يوجد عطل',
+    recommendation: 'Cable operating normally',
+    recommendationAr: 'الكابل يعمل بشكل طبيعي',
+    accuracy: '---',
   },
 ];
 
@@ -79,8 +68,6 @@ export const DeviceMockup = () => {
              setTimeout(() => {
                setShowReport(true);
              }, 1000);
-             // Move to next scenario for next scan
-             setCurrentScenarioIndex((prevIndex) => (prevIndex + 1) % faultScenarios.length);
           }, 1500);
           return 100;
         }
@@ -94,6 +81,8 @@ export const DeviceMockup = () => {
       setStatus('idle');
       setProgress(0);
       setShowReport(false);
+      // Move to next scenario when reset
+      setCurrentScenarioIndex((prevIndex) => (prevIndex + 1) % faultScenarios.length);
   };
 
   // Blinking effect for the LED
@@ -147,9 +136,6 @@ export const DeviceMockup = () => {
                                <Power className="w-8 h-8" />
                           </div>
                           <p className="text-slate-500 text-sm">{isRTL ? 'جاهز للمسح' : 'READY TO SCAN'}</p>
-                          <p className="text-slate-600 text-xs">
-                              {isRTL ? `سيناريو ${currentScenarioIndex + 1}/3` : `Scenario ${currentScenarioIndex + 1}/3`}
-                          </p>
                       </div>
                   )}
 
@@ -180,38 +166,44 @@ export const DeviceMockup = () => {
 
                   {status === 'result' && (
                       <div className="text-center space-y-4 animate-in zoom-in duration-300">
-                          <div className="space-y-1">
-                          <p className="text-slate-400 text-xs uppercase tracking-wider">
-                              {isRTL ? 'المسافة إلى العطل' : 'FAULT DISTANCE'}
-                          </p>
-                          <h2 className="text-5xl font-mono font-bold text-white tracking-tighter shadow-green-500/20 drop-shadow-lg">
-                              {currentScenario.distance.toFixed(1)}<span className="text-xl text-slate-500 ml-1">m</span>
-                          </h2>
-                          </div>
+                          {currentScenario.status === 'healthy' ? (
+                              // Healthy Cable - No Fault
+                              <>
+                                  <div className="w-20 h-20 rounded-full bg-green-500/10 border-2 border-green-500 flex items-center justify-center mx-auto mb-2">
+                                      <CheckCircle className="w-10 h-10 text-green-400" />
+                                  </div>
+                                  <p className="text-green-400 text-lg font-bold tracking-wider">
+                                      {isRTL ? 'لا يوجد عطل' : 'NO FAULT'}
+                                  </p>
+                                  <p className="text-slate-400 text-xs">
+                                      {isRTL ? 'الكابل يعمل بشكل طبيعي' : 'Cable operating normally'}
+                                  </p>
+                              </>
+                          ) : (
+                              // Faulty Cable
+                              <>
+                                  <div className="space-y-1">
+                                      <p className="text-slate-400 text-xs uppercase tracking-wider">
+                                          {isRTL ? 'المسافة إلى العطل' : 'FAULT DISTANCE'}
+                                      </p>
+                                      <h2 className="text-5xl font-mono font-bold text-white tracking-tighter shadow-green-500/20 drop-shadow-lg">
+                                          {currentScenario.distance.toFixed(1)}<span className="text-xl text-slate-500 ml-1">m</span>
+                                      </h2>
+                                  </div>
 
-                          <div className={`rounded-lg p-3 w-full border animate-pulse-slow ${
-                              currentScenario.status === 'critical' ? 'bg-red-500/10 border-red-500/20' :
-                              currentScenario.status === 'warning' ? 'bg-yellow-500/10 border-yellow-500/20' :
-                              'bg-orange-500/10 border-orange-500/20'
-                          }`}>
-                          <div className="flex items-center gap-2 mb-1 justify-center">
-                              <MapPin className={`w-3 h-3 ${
-                                  currentScenario.status === 'critical' ? 'text-red-400' :
-                                  currentScenario.status === 'warning' ? 'text-yellow-400' :
-                                  'text-orange-400'
-                              }`} />
-                              <span className={`text-xs font-bold ${
-                                  currentScenario.status === 'critical' ? 'text-red-300' :
-                                  currentScenario.status === 'warning' ? 'text-yellow-300' :
-                                  'text-orange-300'
-                              }`}>
-                              {isRTL ? 'توصية المنطقة' : 'ZONE'}
-                              </span>
-                          </div>
-                          <p className="text-xs text-slate-300 font-mono">
-                              {isRTL ? currentScenario.zoneAr : currentScenario.zone}
-                          </p>
-                          </div>
+                                  <div className="rounded-lg p-3 w-full border animate-pulse-slow bg-red-500/10 border-red-500/20">
+                                      <div className="flex items-center gap-2 mb-1 justify-center">
+                                          <MapPin className="w-3 h-3 text-red-400" />
+                                          <span className="text-xs font-bold text-red-300">
+                                              {isRTL ? 'توصية المنطقة' : 'ZONE'}
+                                          </span>
+                                      </div>
+                                      <p className="text-xs text-slate-300 font-mono">
+                                          {isRTL ? currentScenario.zoneAr : currentScenario.zone}
+                                      </p>
+                                  </div>
+                              </>
+                          )}
                       </div>
                   )}
               </div>
@@ -293,22 +285,17 @@ export const DeviceMockup = () => {
           >
             <div className={`p-4 ${
               currentScenario.status === 'critical' ? 'bg-red-50 border-b-2 border-red-200' :
-              currentScenario.status === 'warning' ? 'bg-yellow-50 border-b-2 border-yellow-200' :
-              'bg-orange-50 border-b-2 border-orange-200'
+              'bg-green-50 border-b-2 border-green-200'
             }`}>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   {currentScenario.status === 'critical' ? (
                     <AlertTriangle className="w-5 h-5 text-red-600" />
-                  ) : currentScenario.status === 'warning' ? (
-                    <Info className="w-5 h-5 text-yellow-600" />
                   ) : (
-                    <CheckCircle className="w-5 h-5 text-orange-600" />
+                    <CheckCircle className="w-5 h-5 text-green-600" />
                   )}
                   <h3 className={`font-bold text-sm ${
-                    currentScenario.status === 'critical' ? 'text-red-900' :
-                    currentScenario.status === 'warning' ? 'text-yellow-900' :
-                    'text-orange-900'
+                    currentScenario.status === 'critical' ? 'text-red-900' : 'text-green-900'
                   }`}>
                     {isRTL ? 'تقرير الفحص' : 'Scan Report'}
                   </h3>
@@ -324,37 +311,39 @@ export const DeviceMockup = () => {
 
             <div className="p-4 space-y-3 text-sm">
               <div className="flex justify-between items-center">
-                <span className="text-gray-600 font-medium">{isRTL ? 'نوع العطل:' : 'Fault Type:'}</span>
-                <span className="text-gray-900 font-bold">{isRTL ? currentScenario.faultTypeAr : currentScenario.faultType}</span>
-              </div>
-              
-              <div className="flex justify-between items-center">
-                <span className="text-gray-600 font-medium">{isRTL ? 'المسافة:' : 'Distance:'}</span>
-                <span className="text-gray-900 font-mono font-bold">{currentScenario.distance.toFixed(1)}m</span>
-              </div>
-
-              <div className="flex justify-between items-center">
-                <span className="text-gray-600 font-medium">{isRTL ? 'الدقة:' : 'Accuracy:'}</span>
-                <span className="text-gray-900 font-mono">{currentScenario.accuracy}</span>
-              </div>
-
-              <div className="flex justify-between items-center">
-                <span className="text-gray-600 font-medium">{isRTL ? 'منطقة الحفر:' : 'Excavation Zone:'}</span>
-                <span className="text-blue-600 font-mono text-xs">
-                  {(currentScenario.distance - 0.5).toFixed(1)}m - {(currentScenario.distance + 0.5).toFixed(1)}m
+                <span className="text-gray-600 font-medium">{isRTL ? 'الحالة:' : 'Status:'}</span>
+                <span className={`font-bold ${currentScenario.status === 'healthy' ? 'text-green-600' : 'text-red-600'}`}>
+                  {isRTL ? currentScenario.faultTypeAr : currentScenario.faultType}
                 </span>
               </div>
+              
+              {currentScenario.status !== 'healthy' && (
+                <>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600 font-medium">{isRTL ? 'المسافة:' : 'Distance:'}</span>
+                    <span className="text-gray-900 font-mono font-bold">{currentScenario.distance.toFixed(1)}m</span>
+                  </div>
+
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600 font-medium">{isRTL ? 'الدقة:' : 'Accuracy:'}</span>
+                    <span className="text-gray-900 font-mono">{currentScenario.accuracy}</span>
+                  </div>
+
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600 font-medium">{isRTL ? 'منطقة الحفر:' : 'Excavation Zone:'}</span>
+                    <span className="text-blue-600 font-mono text-xs">
+                      {(currentScenario.distance - 0.5).toFixed(1)}m - {(currentScenario.distance + 0.5).toFixed(1)}m
+                    </span>
+                  </div>
+                </>
+              )}
 
               <div className={`mt-3 p-3 rounded-lg ${
-                currentScenario.status === 'critical' ? 'bg-red-50' :
-                currentScenario.status === 'warning' ? 'bg-yellow-50' :
-                'bg-orange-50'
+                currentScenario.status === 'critical' ? 'bg-red-50' : 'bg-green-50'
               }`}>
                 <p className="text-xs text-gray-600 mb-1 font-medium">{isRTL ? 'التوصية:' : 'Recommendation:'}</p>
                 <p className={`text-sm font-bold ${
-                  currentScenario.status === 'critical' ? 'text-red-700' :
-                  currentScenario.status === 'warning' ? 'text-yellow-700' :
-                  'text-orange-700'
+                  currentScenario.status === 'critical' ? 'text-red-700' : 'text-green-700'
                 }`}>
                   {isRTL ? currentScenario.recommendationAr : currentScenario.recommendation}
                 </p>
