@@ -3,7 +3,8 @@
 import { Card } from '@/components/shared/Card';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
 import { costComparison } from '@/lib/data/mockKPIs';
-import { formatCurrency, formatPercentage } from '@/lib/utils/formatters';
+import { formatPercentage } from '@/lib/utils/formatters';
+import { CurrencyDisplay } from '@/components/shared/OmaniRialSymbol';
 import { TrendingDown, TrendingUp, Clock, Zap } from 'lucide-react';
 
 export function CostSavings() {
@@ -98,17 +99,17 @@ export function CostSavings() {
               <div className="grid grid-cols-2 gap-2">
                 <div className="p-2 bg-red-50 rounded text-center">
                   <p className="text-xs text-red-600 font-medium">{t('traditional')}</p>
-                  <p className="text-sm font-bold text-red-700">
+                  <p className="text-sm font-bold text-red-700 flex items-center justify-center">
                     {item.isCurrency && typeof item.traditional === 'number' 
-                      ? formatCurrency(item.traditional, language)
+                      ? <CurrencyDisplay amount={item.traditional} language={language} symbolSize="xs" />
                       : item.traditional}
                   </p>
                 </div>
                 <div className="p-2 bg-green-50 rounded text-center">
                   <p className="text-xs text-green-600 font-medium">{t('predictive')}</p>
-                  <p className="text-sm font-bold text-green-700">
+                  <p className="text-sm font-bold text-green-700 flex items-center justify-center">
                     {item.isCurrency && typeof item.predictive === 'number'
-                      ? formatCurrency(item.predictive, language)
+                      ? <CurrencyDisplay amount={item.predictive} language={language} symbolSize="xs" />
                       : item.predictive}
                   </p>
                 </div>

@@ -89,19 +89,19 @@ export function CableMap() {
       <div className="flex gap-4 mb-4 text-sm">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-status-healthy" />
-          <span className="text-gray-600">{t('healthy')}: {statusCounts.healthy}</span>
+          <span className="text-gray-600" suppressHydrationWarning>{t('healthy')}: {statusCounts.healthy}</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-status-warning" />
-          <span className="text-gray-600">{t('warning')}: {statusCounts.warning}</span>
+          <span className="text-gray-600" suppressHydrationWarning>{t('warning')}: {statusCounts.warning}</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-status-caution" />
-          <span className="text-gray-600">{t('caution')}: {statusCounts.caution}</span>
+          <span className="text-gray-600" suppressHydrationWarning>{t('caution')}: {statusCounts.caution}</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-status-critical animate-pulse" />
-          <span className="text-gray-600">{t('critical')}: {statusCounts.critical}</span>
+          <span className="text-gray-600" suppressHydrationWarning>{t('critical')}: {statusCounts.critical}</span>
         </div>
       </div>
 

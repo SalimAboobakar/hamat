@@ -97,8 +97,9 @@ export function TrendCharts() {
 
       {/* Cost Savings Trend */}
       <Card className="p-6 lg:col-span-2">
-        <h3 className="text-lg font-bold text-gray-900 mb-4">
-          {t('monthlySavings')} {t('trends')} (K OMR)
+        <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+          <span>{t('monthlySavings')} {t('trends')}</span>
+          <span className="text-sm text-gray-600">(Hours)</span>
         </h3>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={chartData}>
@@ -118,7 +119,7 @@ export function TrendCharts() {
               fill="#F9E795"
               stroke="#1E2761"
               strokeWidth={1}
-              name={t('monthlySavings') + ' (K OMR)'}
+              name={t('monthlySavings') + ' (Hours)'}
               radius={[8, 8, 0, 0]}
             />
           </BarChart>

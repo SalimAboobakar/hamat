@@ -64,19 +64,19 @@ export default function MaintenancePage() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card className="p-4">
           <p className="text-sm text-gray-600">{t('pending')}</p>
-          <p className="text-2xl font-bold text-yellow-600 mt-1">{stats.pending}</p>
+          <p className="text-2xl font-bold text-yellow-600 mt-1" suppressHydrationWarning>{stats.pending}</p>
         </Card>
         <Card className="p-4">
           <p className="text-sm text-gray-600">{t('inProgress')}</p>
-          <p className="text-2xl font-bold text-blue-600 mt-1">{stats.inProgress}</p>
+          <p className="text-2xl font-bold text-blue-600 mt-1" suppressHydrationWarning>{stats.inProgress}</p>
         </Card>
         <Card className="p-4">
           <p className="text-sm text-gray-600">{t('completed')}</p>
-          <p className="text-2xl font-bold text-green-600 mt-1">{stats.completed}</p>
+          <p className="text-2xl font-bold text-green-600 mt-1" suppressHydrationWarning>{stats.completed}</p>
         </Card>
         <Card className="p-4">
           <p className="text-sm text-gray-600">{t('workOrders')}</p>
-          <p className="text-2xl font-bold text-gray-900 mt-1">{stats.total}</p>
+          <p className="text-2xl font-bold text-gray-900 mt-1" suppressHydrationWarning>{stats.total}</p>
         </Card>
       </div>
 

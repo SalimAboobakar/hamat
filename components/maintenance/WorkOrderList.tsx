@@ -4,9 +4,10 @@ import { Card } from '@/components/shared/Card';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
 import { mockWorkOrders } from '@/lib/data/mockWorkOrders';
 import { WorkOrder, WorkOrderStatus, WorkOrderPriority } from '@/types';
-import { formatDate, formatCurrency, getPriorityColor, getWorkOrderStatusColor } from '@/lib/utils/formatters';
+import { formatDate, getPriorityColor, getWorkOrderStatusColor } from '@/lib/utils/formatters';
+import { CurrencyDisplay } from '@/components/shared/OmaniRialSymbol';
 import { TranslationKey } from '@/lib/i18n/translations';
-import { Calendar, User, DollarSign, ChevronRight } from 'lucide-react';
+import { Calendar, User, ChevronRight } from 'lucide-react';
 import { clsx } from 'clsx';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -133,11 +134,12 @@ export function WorkOrderList() {
                         {formatDate(wo.scheduledDate, language, 'PP')}
                       </span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <DollarSign className="w-4 h-4 text-gray-400" />
-                      <span className="text-gray-700">
-                        {formatCurrency(wo.estimatedCost, language)}
-                      </span>
+                    <div className="flex items-center gap-2 text-gray-700">
+                      <CurrencyDisplay 
+                        amount={wo.estimatedCost} 
+                        language={language} 
+                        symbolSize="xs"
+                      />
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-gray-600 font-medium">{wo.cableId}</span>

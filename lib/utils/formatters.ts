@@ -9,16 +9,14 @@ export function formatCurrency(amount: number, language: 'en' | 'ar' = 'en'): st
     maximumFractionDigits: 0,
   }).format(amount);
 
-  if (language === 'ar') {
-    return `${formatted} ريال عماني`;
-  }
+  const OMR_SYMBOL = '﷼'; // Official Omani Rial symbol (U+FDFC)
   
   if (amount >= 1000000) {
-    return `${(amount / 1000000).toFixed(1)}M OMR`;
+    return `${OMR_SYMBOL} ${(amount / 1000000).toFixed(1)}M`;
   } else if (amount >= 1000) {
-    return `${(amount / 1000).toFixed(0)}K OMR`;
+    return `${OMR_SYMBOL} ${(amount / 1000).toFixed(0)}K`;
   }
-  return `${formatted} OMR`;
+  return `${OMR_SYMBOL} ${formatted}`;
 }
 
 // Format number with thousands separator

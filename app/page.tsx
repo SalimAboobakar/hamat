@@ -4,7 +4,6 @@ import { KPICards } from '@/components/dashboard/KPICards';
 import { CableMap } from '@/components/dashboard/CableMap';
 import { AlertsPanel } from '@/components/dashboard/AlertsPanel';
 import { RecentActivity } from '@/components/dashboard/RecentActivity';
-import { DeviceStatus } from '@/components/dashboard/DeviceStatus';
 import { TDRCalculator } from '@/components/tdr/TDRCalculator';
 import { TDREquation } from '@/components/tdr/TDREquation';
 import { DeviceMockup } from '@/components/tdr/DeviceMockup';
@@ -64,9 +63,6 @@ export default function DashboardPage() {
           </button>
         </div>
       </div>
-
-      {/* Device Status - TDR Connection */}
-      <DeviceStatus />
 
       {/* Generate Report Button */}
       <div className="flex justify-center">
